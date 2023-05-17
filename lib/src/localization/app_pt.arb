@@ -1,34 +1,19 @@
 {
     "appTitle": "Self Hosted Fonts Helper",
-    "@appTitle": {
-      "description": "O título do aplicativo"
-    },
+    "appSubtitle": "Um jeito descomplicado de auto-hospedar fontes",
+    "homeAuthorLink": "por Matheus Rocha",
+    "homeContinueAction": "Selecione uma fonte para continuar...",
+    "homeUsefulLinksSectionTitle": "Links úteis",
+    "homeUsefulLinkGoogleFontsOpenSourceFontAttribution": "Atribuição de fontes de código aberto do Google Fonts",
+    "homeUsefulLinkHowToUseFontFaceInCss": "Como utilizar @font-face no CSS",
+    "homeUsefulLinkSelfHostingGoogleFonts": "Auto-hospedando fontes do Google Fonts",
+    "homeUsefulLinkCanIUseWoff2": "Posso utilizar woff2? (suporte dos navegadores)",
+    "homeUsefulFontsSetupInFlutter": "Configuração de fontes no Flutter",
     "pageSettingsTitle": "Configurações",
-    "@pageSettingsTitle": {
-      "description": "O título da página de configurações"
-    },
     "localeLabel": "Idioma",
-    "@localeLabel": {
-      "description": "Label para a sessão de seleção de idioma"
-    },
     "localeOptionSystem": "idioma do sistema",
-    "@localeOptionSystem": {
-      "description": "A opção para o idioma do sistema na seleção de linguagem"
-    },
     "themeLabel": "Tema",
-    "@themeLabel": {
-      "description": "Label para a sessão de seleção de tema"
-    },
     "themeOptionSystem": "tema do sistema",
-    "@themeOptionSystem": {
-      "description": "opção para o tema do sistema"
-    },
     "themeOptionLight": "claro",
-    "@themeOptionLight": {
-      "description": "opção para o tema claro"
-    },
-    "themeOptionDark": "escuro",
-    "@themeOptionDark": {
-      "description": "opção para o tema escuro"
-    }
+    "themeOptionDark": "escuro"
   }

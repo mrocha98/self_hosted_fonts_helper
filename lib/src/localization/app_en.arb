@@ -3,6 +3,42 @@
     "@appTitle": {
       "description": "The title of the application"
     },
+    "appSubtitle": "A Hassle-Free Way to Self-Host Fonts",
+    "@appSubtitle": {
+      "description": "The subtitle of the application"
+    },
+    "homeAuthorLink": "by Matheus Rocha",
+    "@homeAuthorLink": {
+      "description": "The text for the author link"
+    },
+    "homeContinueAction": "Select a font to continue...",
+    "@homeContinueAction": {
+      "description": "The text explaning how to start"
+    },
+    "homeUsefulLinksSectionTitle": "Useful links",
+    "@homeUsefulLinksSectionTitle": {
+      "description": "The title of useful links section on home"
+    },
+    "homeUsefulLinkGoogleFontsOpenSourceFontAttribution": "Google Fonts Open Source Font Attribution",
+    "@homeUsefulLinkGoogleFontsOpenSourceFontAttribution": {
+      "description": "The text for https://fonts.google.com/attribution"
+    },
+    "homeUsefulLinkHowToUseFontFaceInCss": "How to use @font-face in CSS",
+    "@homeUsefulLinkHowToUseFontFaceInCss": {
+      "description": "The text for https://css-tricks.com/snippets/css/using-font-face-in-css/"
+    },
+    "homeUsefulLinkSelfHostingGoogleFonts": "Self-hosting Google Fonts",
+    "@homeUsefulLinkSelfHostingGoogleFonts": {
+      "description": "The text for https://mranftl.com/2014/12/23/self-hosting-google-web-fonts/"
+    },
+    "homeUsefulLinkCanIUseWoff2": "Can I use woff2? (browsers support)",
+    "@homeUsefulLinkCanIUseWoff2": {
+      "description": "The text for https://caniuse.com/woff2"
+    },
+    "homeUsefulFontsSetupInFlutter": "Fonts setup in Flutter",
+    "@homeUsefulFontsSetupInFlutter": {
+      "description": "The text for https://docs.flutter.dev/cookbook/design/fonts"
+    },
     "pageSettingsTitle": "Settings",
     "@pageSettingsTitle": {
       "description": "The title of settings page"
