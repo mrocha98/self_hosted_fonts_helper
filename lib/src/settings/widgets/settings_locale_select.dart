@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:intl/intl.dart';
 import 'package:locale_emoji_flutter/locale_emoji_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/constants/supported_locales.dart';
+import '../../core/locale/app_localizations.dart';
 import '../settings_controller.dart';
 
 class SettingsLocaleSelect extends StatelessWidget {

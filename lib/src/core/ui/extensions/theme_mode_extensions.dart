@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../locale/app_localizations.dart';
 
 extension ThemeModeExtensions on ThemeMode {
   String getLocalizedName(BuildContext context) {
