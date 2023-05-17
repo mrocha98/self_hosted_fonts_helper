@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "editorconfig.editorconfig",
+    "dart-code.dart-code",
+    "dart-code.flutter",
+    "ricardo-emerson.dart-data-class-tools"
+  ]
+}
