@@ -4,6 +4,7 @@ import '../core/locale/app_localizations.dart';
 import '../core/widgets/custom_app_bar.dart';
 import '../core/widgets/link_text.dart';
 import '../core/widgets/text_list.dart';
+import 'widgets/home_continue_action_text.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -45,16 +46,7 @@ class HomeView extends StatelessWidget {
                 ),
                 child: Divider(),
               ),
-              Row(
-                children: [
-                  Icon(
-                    Icons.arrow_back_rounded,
-                    size: Theme.of(context).textTheme.bodySmall!.fontSize,
-                  ),
-                  const SizedBox(width: 4),
-                  Text(AppLocalizations.of(context)!.homeContinueAction),
-                ],
-              ),
+              const HomeContinueActionText(),
               Padding(
                 padding: const EdgeInsets.only(top: 24, bottom: 12),
                 child: Text(
