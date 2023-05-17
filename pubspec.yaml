@@ -1,0 +1,50 @@
+name: self_hosted_fonts_helper
+description: A Hassle-Free Way to Self-Host Fonts
+
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  provider: ^6.0.5
+  meta: ^1.9.1
+  get_storage: ^2.1.1
+  popover: ^0.2.8+2
+  locale_emoji_flutter: ^0.2.1
+  flutter_localized_locales: ^2.0.4
+  intl: ^0.18.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+  very_good_analysis: ^4.0.0+1
+
+flutter:
+  uses-material-design: true
+
+  generate: true
+
+  assets:
+    - assets/images/
+  fonts:
+    - family: IBM Plex Mono
+      fonts:
+        - asset: assets/fonts/ibm-plex-mono-v19-latin-regular.ttf
+          style: normal
+          weight: 400
+    - family: IBM Plex Sans
+      fonts:
+        - asset: assets/fonts/ibm-plex-sans-v19-latin-regular.ttf
+          style: normal
+          weight: 400
+        - asset: assets/fonts/ibm-plex-sans-v19-latin-700.ttf
+          style: normal
+          weight: 700

@@ -1,0 +1,34 @@
+{
+    "appTitle": "Self Hosted Fonts Helper",
+    "@appTitle": {
+      "description": "The title of the application"
+    },
+    "pageSettingsTitle": "Settings",
+    "@pageSettingsTitle": {
+      "description": "The title of settings page"
+    },
+    "localeLabel": "Language",
+    "@localeLabel": {
+      "description": "Label for the language selection section"
+    },
+    "localeOptionSystem": "system language",
+    "@localeOptionSystem": {
+      "description": "The option for system language in language selection"
+    },
+    "themeLabel": "Theme",
+    "@themeLabel": {
+      "description": "Label for theme selection section"
+    },
+    "themeOptionSystem": "system",
+    "@themeOptionSystem": {
+      "description": "system option"
+    },
+    "themeOptionLight": "light",
+    "@themeOptionLight": {
+      "description": "light option"
+    },
+    "themeOptionDark": "dark",
+    "@themeOptionDark": {
+      "description": "dark option"
+    }
+  }
