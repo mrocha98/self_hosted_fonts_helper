@@ -20,6 +20,7 @@ dependencies:
   locale_emoji_flutter: ^0.2.1
   flutter_localized_locales: ^2.0.4
   intl: ^0.18.0
+  url_launcher: ^6.1.11
 
 dev_dependencies:
   flutter_test:
@@ -48,3 +49,6 @@ flutter:
         - asset: assets/fonts/ibm-plex-sans-v19-latin-700.ttf
           style: normal
           weight: 700
+    - family: GithubIcon
+      fonts:
+        - asset: assets/fonts/GithubIcon.ttf

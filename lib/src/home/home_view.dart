@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../core/widgets/settings_button.dart';
+import '../core/widgets/custom_app_bar.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -9,15 +9,9 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('HOME'),
-        actions: const [
-          SettingsButton(),
-        ],
-      ),
-      body: const Column(
+    return const Scaffold(
+      appBar: CustomAppBar(),
+      body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
       ),
     );
