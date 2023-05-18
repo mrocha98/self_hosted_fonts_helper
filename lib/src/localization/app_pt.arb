@@ -15,5 +15,16 @@
     "themeLabel": "Tema",
     "themeOptionSystem": "tema do sistema",
     "themeOptionLight": "claro",
-    "themeOptionDark": "escuro"
+    "themeOptionDark": "escuro",
+    "fontsFilterLabelText": "Nome da fonte",
+    "fontsFilterHintText": "{count,plural, =0{nenhuma fonte disponível} =1{{count} fonte disponível} other{{count} fontes disponíveis}}",
+    "fontsFilterOrderByLabel": "Ordenar por",
+    "fontsFilterOrderByFamilyParameter": "Família",
+    "fontsFilterOrderByCategoryParameter": "Categoria",
+    "fontsFilterOrderByPopularityParameter": "Popularidade",
+    "fontsFilterOrderByLastModifiedParameter": "Última atualização",
+    "fontsFilterOrderByNumberOfStylesParameter": "Quantidade de estilos",
+    "fontsFilterOrderByNumberOfCharsetsParameter": "Quantidade de conjuntos de caracteres",
+    "fontsFilterSortOrderAscending": "ascendente",
+    "fontsFilterSortOrderDescending": "descendente"
   }

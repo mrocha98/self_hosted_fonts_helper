@@ -66,5 +66,54 @@
     "themeOptionDark": "dark",
     "@themeOptionDark": {
       "description": "dark option"
+    },
+    "fontsFilterLabelText": "Font name",
+    "@fontsFilterLabelText": {
+      "description": "Label for input in fonts filter"
+    },
+    "fontsFilterHintText": "{count,plural, =0{no fonts available} =1{{count} font available} other{{count} fonts available}}",
+    "@fontsFilterHintText": {
+      "description": "Hint text for input in fonts filter",
+      "placeholders": {
+        "count": {
+          "type": "int"
+        }
+      }
+    },
+    "fontsFilterOrderByLabel": "Order by",
+    "@fontsFilterOrderByLabel": {
+      "description": "Label for fonts filter's filter button"
+    },
+    "fontsFilterOrderByFamilyParameter": "Family",
+    "@fontsFilterOrderByFamilyParameter": {
+      "description": "Fonts filter order by Family parameter"
+    },
+    "fontsFilterOrderByCategoryParameter": "Category",
+    "@fontsFilterOrderByCategoryParameter": {
+      "description": "Fonts filter order by Category parameter"
+    },
+    "fontsFilterOrderByPopularityParameter": "Popularity",
+    "@fontsFilterOrderByPopularityParameter": {
+      "description": "Fonts filter order by Popularity parameter"
+    },
+    "fontsFilterOrderByLastModifiedParameter": "Last modified",
+    "@fontsFilterOrderByLastModifiedParameter": {
+      "description": "Fonts filter order by Last modified parameter"
+    },
+    "fontsFilterOrderByNumberOfStylesParameter": "Number of styles",
+    "@fontsFilterOrderByNumberOfStylesParameter": {
+      "description": "Fonts filter order by Number of styles parameter"
+    },
+    "fontsFilterOrderByNumberOfCharsetsParameter": "Number of charsets",
+    "@fontsFilterOrderByNumberOfCharsetsParameter": {
+      "description": "Fonts filter order by Number of charsets parameter"
+    },
+    "fontsFilterSortOrderAscending": "ascending",
+    "@fontsFilterSortOrderAscending": {
+      "description": "Sort order parameter text when current order is ascending"
+    },
+    "fontsFilterSortOrderDescending": "descending",
+    "@fontsFilterSortOrderDescending": {
+      "description": "Sort order parameter text when current order is descending"
     }
   }

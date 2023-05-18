@@ -4,20 +4,29 @@ import '../core/locale/app_localizations.dart';
 import '../core/widgets/custom_app_bar.dart';
 import '../core/widgets/link_text.dart';
 import '../core/widgets/text_list.dart';
-import 'widgets/home_continue_action_text.dart';
+import '../fonts_filter/fonts_filter_drawer.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({super.key});
 
   static const routeName = '/';
 
   @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: const CustomAppBar(),
+      drawer: const FontsFilterDrawer(),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -46,7 +55,12 @@ class HomeView extends StatelessWidget {
                 ),
                 child: Divider(),
               ),
-              const HomeContinueActionText(),
+              ElevatedButton(
+                onPressed: () {
+                  _scaffoldKey.currentState?.openDrawer();
+                },
+                child: Text(AppLocalizations.of(context)!.homeContinueAction),
+              ),
               Padding(
                 padding: const EdgeInsets.only(top: 24, bottom: 12),
                 child: Text(
