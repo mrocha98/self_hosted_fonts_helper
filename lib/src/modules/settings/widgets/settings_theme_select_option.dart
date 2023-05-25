@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../core/ui/extensions/theme_mode_extensions.dart';
+import '../../../core/ui/extensions/theme_mode_extensions.dart';
 import '../settings_controller.dart';
 
 class SettingsThemeSelectOption extends StatelessWidget {

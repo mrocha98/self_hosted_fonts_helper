@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../core/locale/app_localizations.dart';
+import '../../core/locale/app_localizations.dart';
 
 class FontsFilterDrawer extends StatelessWidget {
   const FontsFilterDrawer({super.key});

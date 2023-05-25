@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../core/locale/app_localizations.dart';
-import '../core/widgets/custom_app_bar.dart';
-import '../core/widgets/link_text.dart';
-import '../core/widgets/text_list.dart';
+import '../../core/locale/app_localizations.dart';
+import '../../core/widgets/custom_app_bar.dart';
+import '../../core/widgets/link_text.dart';
+import '../../core/widgets/text_list.dart';
 import '../fonts_filter/fonts_filter_drawer.dart';
 
 class HomeView extends StatefulWidget {

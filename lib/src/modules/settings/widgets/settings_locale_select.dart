@@ -4,8 +4,8 @@ import 'package:intl/intl.dart';
 import 'package:locale_emoji_flutter/locale_emoji_flutter.dart';
 import 'package:provider/provider.dart';
 
-import '../../core/locale/app_localizations.dart';
-import '../../core/locale/supported_locales.dart';
+import '../../../core/locale/app_localizations.dart';
+import '../../../core/locale/supported_locales.dart';
 import '../settings_controller.dart';
 
 class SettingsLocaleSelect extends StatelessWidget {

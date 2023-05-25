@@ -1,4 +1,4 @@
-import '../core/module/module.dart';
+import '../../core/module/module.dart';
 import 'home_view.dart';
 
 class HomeModule extends Module {

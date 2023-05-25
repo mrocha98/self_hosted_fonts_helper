@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../services/locale/locale_service.dart';
-import '../services/theme_mode/theme_mode_service.dart';
+import '../../services/locale/locale_service.dart';
+import '../../services/theme_mode/theme_mode_service.dart';
 import 'settings_model.dart';
 
 class SettingsController extends ChangeNotifier {

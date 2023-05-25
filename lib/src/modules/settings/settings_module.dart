@@ -1,4 +1,4 @@
-import '../core/module/module.dart';
+import '../../core/module/module.dart';
 import 'settings_view.dart';
 
 class SettingsModule extends Module {

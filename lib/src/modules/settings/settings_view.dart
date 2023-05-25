@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../core/locale/app_localizations.dart';
+import '../../core/locale/app_localizations.dart';
 import 'widgets/settings_locale_select.dart';
 import 'widgets/settings_theme_select_option.dart';
 

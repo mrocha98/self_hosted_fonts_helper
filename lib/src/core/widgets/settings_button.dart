@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:popover/popover.dart';
 
-import '../../settings/settings_module.dart';
-import '../../settings/settings_view.dart';
+import '../../modules/settings/settings_module.dart';
+import '../../modules/settings/settings_view.dart';
 import '../ui/extensions/size_extensions.dart';
 
 class SettingsButton extends StatelessWidget {
