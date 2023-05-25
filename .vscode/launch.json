@@ -8,6 +8,10 @@
             "name": "self_hosted_fonts_helper",
             "request": "launch",
             "type": "dart",
+            "args": [
+              "--dart-define-from-file",
+              "env.local.json"
+            ],
             "toolArgs": [
               "--web-port",
               "8090",
@@ -17,13 +21,21 @@
             "name": "self_hosted_fonts_helper (profile mode)",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "profile"
+            "flutterMode": "profile",
+            "args": [
+              "--dart-define-from-file",
+              "env.local.json"
+            ],
         },
         {
             "name": "self_hosted_fonts_helper (release mode)",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "release"
+            "flutterMode": "release",
+            "args": [
+              "--dart-define-from-file",
+              "env.local.json"
+            ],
         }
     ]
 }

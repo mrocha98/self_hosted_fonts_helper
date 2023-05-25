@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'app_widget.dart';
 import 'core/database/key_value_storage/get_storage_adapter.dart';
 import 'core/database/key_value_storage/key_value_storage.dart';
+import 'core/env/env.dart';
 import 'repositories/locale/locale_repository.dart';
 import 'repositories/locale/locale_repository_impl.dart';
 import 'repositories/theme_mode/theme_mode_repository.dart';
@@ -21,6 +22,9 @@ class AppModule extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        Provider<Env>(
+          create: (context) => Env(),
+        ),
         Provider<KeyValueStorage>(
           create: (context) => GetStorageAdapter(),
         ),

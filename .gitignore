@@ -48,3 +48,6 @@ app.*.map.json
 
 # etc
 untranslated_messages.txt
+
+# env
+env.local.json
