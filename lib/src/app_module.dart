@@ -5,6 +5,8 @@ import 'app_widget.dart';
 import 'core/database/key_value_storage/get_storage_adapter.dart';
 import 'core/database/key_value_storage/key_value_storage.dart';
 import 'core/env/env.dart';
+import 'core/http_client/http_client.dart';
+import 'core/http_client/http_client_dio_impl.dart';
 import 'repositories/locale/locale_repository.dart';
 import 'repositories/locale/locale_repository_impl.dart';
 import 'repositories/theme_mode/theme_mode_repository.dart';
@@ -27,6 +29,9 @@ class AppModule extends StatelessWidget {
         ),
         Provider<KeyValueStorage>(
           create: (context) => GetStorageAdapter(),
+        ),
+        Provider<HttpClient>(
+          create: (context) => HttpClientDioImpl(context.read<Env>()),
         ),
         Provider<LocaleRepository>(
           create: (context) => LocaleRepositoryImpl(
