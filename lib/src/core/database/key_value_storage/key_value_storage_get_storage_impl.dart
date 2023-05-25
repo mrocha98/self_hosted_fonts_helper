@@ -1,7 +1,7 @@
 import 'package:get_storage/get_storage.dart';
 import 'key_value_storage.dart';
 
-class GetStorageAdapter implements KeyValueStorage {
+class KeyValueStorageGetStorageImpl implements KeyValueStorage {
   @override
   Future<V?> get<V>(String key) async => GetStorage().read<V?>(key);
 

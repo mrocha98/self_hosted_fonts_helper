@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'app_widget.dart';
-import 'core/database/key_value_storage/get_storage_adapter.dart';
 import 'core/database/key_value_storage/key_value_storage.dart';
+import 'core/database/key_value_storage/key_value_storage_get_storage_impl.dart';
 import 'core/env/env.dart';
 import 'core/http_client/http_client.dart';
 import 'core/http_client/http_client_dio_impl.dart';
@@ -28,7 +28,7 @@ class AppModule extends StatelessWidget {
           create: (context) => Env(),
         ),
         Provider<KeyValueStorage>(
-          create: (context) => GetStorageAdapter(),
+          create: (context) => KeyValueStorageGetStorageImpl(),
         ),
         Provider<HttpClient>(
           create: (context) => HttpClientDioImpl(context.read<Env>()),
