@@ -24,6 +24,9 @@ abstract class Module {
         ),
       );
 
+  List<SingleChildWidget> get bindings =>
+      _bindings?.toList(growable: false) ?? const [];
+
   Widget getView(BuildContext context, {required String routeName}) {
     final widgetBuilder = _routes[routeName];
     if (widgetBuilder != null) {
