@@ -7,6 +7,8 @@ import 'core/database/key_value_storage/key_value_storage_get_storage_impl.dart'
 import 'core/env/env.dart';
 import 'core/http_client/http_client.dart';
 import 'core/http_client/http_client_dio_impl.dart';
+import 'core/logger/logger.dart';
+import 'core/logger/logger_talker_impl.dart';
 import 'modules/settings/settings_controller.dart';
 import 'repositories/locale/locale_repository.dart';
 import 'repositories/locale/locale_repository_impl.dart';
@@ -26,6 +28,10 @@ class AppModule extends StatelessWidget {
       providers: [
         Provider<Env>(
           create: (context) => Env(),
+        ),
+        Provider<Logger>(
+          create: (context) => LoggerTalkerImpl(),
+          lazy: false,
         ),
         Provider<KeyValueStorage>(
           create: (context) => KeyValueStorageGetStorageImpl(),
