@@ -7,6 +7,7 @@ import '../../repositories/fonts/fonts_repository.dart';
 import '../../repositories/fonts/fonts_repository_impl.dart';
 import '../../services/fonts/fonts_service.dart';
 import '../../services/fonts/fonts_service_impl.dart';
+import 'fonts_filter_controller.dart';
 
 class FontsFilterModule extends Module {
   FontsFilterModule()
@@ -22,6 +23,11 @@ class FontsFilterModule extends Module {
             Provider<FontsService>(
               create: (context) => FontsServiceImpl(
                 context.read<FontsRepository>(),
+              ),
+            ),
+            ChangeNotifierProvider<FontsFilterController>(
+              create: (context) => FontsFilterController(
+                context.read<FontsService>(),
               ),
             ),
           ],

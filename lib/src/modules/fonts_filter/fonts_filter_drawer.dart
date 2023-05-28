@@ -1,14 +1,58 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../core/locale/app_localizations.dart';
+import '../../core/ui/extensions/size_extensions.dart';
+import 'fonts_filter_controller.dart';
+import 'widgets/fonts_list.dart';
+import 'widgets/search_input.dart';
 
-class FontsFilterDrawer extends StatelessWidget {
+class FontsFilterDrawer extends StatefulWidget {
   const FontsFilterDrawer({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Drawer(
-      child: Column(
+  State<FontsFilterDrawer> createState() => _FontsFilterDrawerState();
+}
+
+class _FontsFilterDrawerState extends State<FontsFilterDrawer> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final controller = context.read<FontsFilterController>();
+      if (controller.filteredFonts.isEmpty) {
+        await controller.loadFonts();
+      }
+    });
+  }
+
+  Widget _buildLoadingShimmer() {
+    final itemCount = context.screenHeight ~/ 100;
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+      child: ListView.separated(
+        itemBuilder: (context, _) => Shimmer.fromColors(
+          baseColor: Theme.of(context).brightness == Brightness.light
+              ? Colors.grey.shade300
+              : Colors.grey.shade900,
+          highlightColor: Theme.of(context).brightness == Brightness.light
+              ? Colors.grey.shade100
+              : Colors.grey.shade400,
+          child: Container(
+            width: double.infinity,
+            height: 96,
+            color: Colors.white,
+          ),
+        ),
+        separatorBuilder: (_, __) => const SizedBox(height: 8),
+        itemCount: itemCount,
+        physics: const NeverScrollableScrollPhysics(),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
@@ -19,109 +63,54 @@ class FontsFilterDrawer extends StatelessWidget {
               color: Theme.of(context).scaffoldBackgroundColor,
             ),
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
-            child: TextFormField(
-              autofocus: true,
-              keyboardType: TextInputType.text,
-              textInputAction: TextInputAction.search,
-              decoration: InputDecoration(
-                border: const OutlineInputBorder(),
-                labelText: AppLocalizations.of(context)!.fontsFilterLabelText,
-                hintText:
-                    AppLocalizations.of(context)!.fontsFilterHintText(2050),
-                isDense: false,
-                suffixIcon: PopupMenuButton<int>(
-                  icon: const Icon(Icons.filter_alt_rounded),
-                  itemBuilder: (context) => [
-                    PopupMenuItem(
-                      enabled: false,
-                      child: Text(
-                        AppLocalizations.of(context)!.fontsFilterOrderByLabel,
-                      ),
-                    ),
-                    PopupMenuItem(
-                      value: 0,
-                      child: Text(
-                        AppLocalizations.of(context)!
-                            .fontsFilterOrderByFamilyParameter,
-                      ),
-                    ),
-                    PopupMenuItem(
-                      value: 1,
-                      child: Text(
-                        AppLocalizations.of(context)!
-                            .fontsFilterOrderByCategoryParameter,
-                      ),
-                    ),
-                    PopupMenuItem(
-                      value: 2,
-                      child: Text(
-                        AppLocalizations.of(context)!
-                            .fontsFilterOrderByPopularityParameter,
-                      ),
-                    ),
-                    PopupMenuItem(
-                      value: 3,
-                      child: Text(
-                        AppLocalizations.of(context)!
-                            .fontsFilterOrderByLastModifiedParameter,
-                      ),
-                    ),
-                    PopupMenuItem(
-                      value: 4,
-                      child: Text(
-                        AppLocalizations.of(context)!
-                            .fontsFilterOrderByNumberOfStylesParameter,
-                      ),
-                    ),
-                    PopupMenuItem(
-                      value: 5,
-                      child: Text(
-                        AppLocalizations.of(context)!
-                            .fontsFilterOrderByNumberOfCharsetsParameter,
-                      ),
-                    ),
-                    const PopupMenuDivider(),
-                    PopupMenuItem(
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Icon(Icons.arrow_downward_rounded),
-                          const SizedBox(width: 4),
-                          Text(
-                            AppLocalizations.of(context)!
-                                .fontsFilterSortOrderDescending,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            child: const SearchInput(),
           ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-              child: ListView.separated(
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text((index + 1).toString()),
-                    subtitle: Text(((index + 1) * 10).toString()),
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                    selected: index == 0,
-                    selectedTileColor:
-                        Theme.of(context).colorScheme.inversePrimary,
-                    selectedColor: Theme.of(context).listTileTheme.textColor,
-                  );
-                },
-                separatorBuilder: (context, index) => const Divider(),
-                itemCount: 25,
-              ),
-            ),
+          const Expanded(
+            child: FontsList(),
           )
         ],
+      );
+
+  Widget _buildErrorMessage(BuildContext context) {
+    final errorMessage = AppLocalizations.of(context)!.genericErrorMessage;
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.close,
+            color: Colors.red,
+            size: Theme.of(context).textTheme.displayMedium?.fontSize,
+          ),
+          const SizedBox(height: 4),
+          Text(
+            errorMessage,
+            style: Theme.of(context).textTheme.headlineMedium,
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: Selector<FontsFilterController, bool>(
+        selector: (context, controller) => controller.loading,
+        builder: (context, loading, _) => Visibility(
+          visible: !loading,
+          replacement: _buildLoadingShimmer(),
+          child: Selector<FontsFilterController, bool>(
+            selector: (context, controller) => controller.error,
+            builder: (context, hasError, _) {
+              if (hasError) {
+                return _buildErrorMessage(context);
+              }
+              return _buildContent(context);
+            },
+          ),
+        ),
       ),
     );
   }
