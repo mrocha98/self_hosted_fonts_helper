@@ -5,6 +5,8 @@ import '../../core/logger/logger.dart';
 import '../../core/module/module.dart';
 import '../../repositories/fonts/fonts_repository.dart';
 import '../../repositories/fonts/fonts_repository_impl.dart';
+import '../../services/fonts/fonts_service.dart';
+import '../../services/fonts/fonts_service_impl.dart';
 
 class FontsFilterModule extends Module {
   FontsFilterModule()
@@ -15,6 +17,11 @@ class FontsFilterModule extends Module {
               create: (context) => FontsRepositoryImpl(
                 context.read<HttpClient>(),
                 context.read<Logger>(),
+              ),
+            ),
+            Provider<FontsService>(
+              create: (context) => FontsServiceImpl(
+                context.read<FontsRepository>(),
               ),
             ),
           ],

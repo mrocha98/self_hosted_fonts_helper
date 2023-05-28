@@ -24,4 +24,7 @@ class FontFilterItemModelFakeFactory {
         defaultSubset: _faker.lorem.word(),
         defaultVariant: _faker.lorem.word(),
       );
+
+  static List<FontFilterItemModel> makeList({int length = 2}) =>
+      List.filled(length, make());
 }
