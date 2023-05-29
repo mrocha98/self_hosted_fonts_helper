@@ -9,11 +9,16 @@ import 'core/http_client/http_client.dart';
 import 'core/http_client/http_client_dio_impl.dart';
 import 'core/logger/logger.dart';
 import 'core/logger/logger_talker_impl.dart';
+import 'modules/fonts_filter/fonts_filter_controller.dart';
 import 'modules/settings/settings_controller.dart';
+import 'repositories/fonts/fonts_repository.dart';
+import 'repositories/fonts/fonts_repository_impl.dart';
 import 'repositories/locale/locale_repository.dart';
 import 'repositories/locale/locale_repository_impl.dart';
 import 'repositories/theme_mode/theme_mode_repository.dart';
 import 'repositories/theme_mode/theme_mode_repository_impl.dart';
+import 'services/fonts/fonts_service.dart';
+import 'services/fonts/fonts_service_impl.dart';
 import 'services/locale/locale_service.dart';
 import 'services/locale/locale_service_impl.dart';
 import 'services/theme_mode/theme_mode_service.dart';
@@ -63,6 +68,22 @@ class AppModule extends StatelessWidget {
           create: (context) => SettingsController(
             context.read<LocaleService>(),
             context.read<ThemeModeService>(),
+          ),
+        ),
+        Provider<FontsRepository>(
+          create: (context) => FontsRepositoryImpl(
+            context.read<HttpClient>(),
+            context.read<Logger>(),
+          ),
+        ),
+        Provider<FontsService>(
+          create: (context) => FontsServiceImpl(
+            context.read<FontsRepository>(),
+          ),
+        ),
+        ChangeNotifierProvider<FontsFilterController>(
+          create: (context) => FontsFilterController(
+            context.read<FontsService>(),
           ),
         ),
       ],

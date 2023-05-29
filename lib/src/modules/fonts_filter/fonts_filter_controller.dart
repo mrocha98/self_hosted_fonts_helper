@@ -14,7 +14,14 @@ class FontsFilterController extends ChangeNotifier {
 
   bool loading = false;
 
-  FontFilterItemModel? selectedFont;
+  FontFilterItemModel? _selectedFont;
+
+  FontFilterItemModel? get selectedFont => _selectedFont;
+
+  set selectedFont(FontFilterItemModel? value) {
+    _selectedFont = value;
+    notifyListeners();
+  }
 
   FontFilterOrderModel _order = const FontFilterOrderModel(
     sortBy: FontFilterSortBy.popularity,

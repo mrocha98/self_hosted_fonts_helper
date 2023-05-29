@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../core/locale/app_localizations.dart';
 import '../../core/widgets/custom_app_bar.dart';
 import '../../core/widgets/link_text.dart';
 import '../../core/widgets/text_list.dart';
+import '../fonts_filter/fonts_filter_controller.dart';
 import '../fonts_filter/fonts_filter_drawer.dart';
 
 class HomeView extends StatefulWidget {
@@ -17,6 +19,14 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      context.read<FontsFilterController>().selectedFont = null;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

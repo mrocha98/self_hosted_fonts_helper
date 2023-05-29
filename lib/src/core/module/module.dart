@@ -24,6 +24,7 @@ abstract class Module {
         ),
       );
 
+  /// * ATTENTION: don't use this getter when there is a ChangeNotifierProvider
   List<SingleChildWidget> get bindings =>
       _bindings?.toList(growable: false) ?? const [];
 

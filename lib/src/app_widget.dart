@@ -7,6 +7,7 @@ import 'core/locale/app_localizations.dart';
 import 'core/locale/supported_locales.dart';
 import 'core/ui/theme/dark_theme.dart';
 import 'core/ui/theme/light_theme.dart';
+import 'modules/font/font_module.dart';
 import 'modules/home/home_module.dart';
 import 'modules/settings/settings_controller.dart';
 import 'modules/settings/settings_module.dart';
@@ -65,6 +66,7 @@ class _AppWidgetState extends State<AppWidget> {
       routes: {
         ...HomeModule().routes,
         ...SettingsModule().routes,
+        ...FontModule().routes,
       },
     );
   }

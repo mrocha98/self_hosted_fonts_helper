@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../../models/font_filter_item_model.dart';
 import '../../../models/font_filter_order_model.dart';
+import '../../font/font_view.dart';
 import '../fonts_filter_controller.dart';
 
 class FontsList extends StatelessWidget {
@@ -40,6 +41,8 @@ class FontsList extends StatelessWidget {
                 onTap: () {
                   context.read<FontsFilterController>().selectedFont = font;
                   Navigator.of(context).pop();
+                  Navigator.of(context)
+                      .pushNamed(FontView.routeName, arguments: font);
                 },
                 selected: selected,
                 selectedTileColor: Theme.of(context).colorScheme.inversePrimary,
