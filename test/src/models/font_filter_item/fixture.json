@@ -1,0 +1,33 @@
+{
+  "id": "roboto",
+  "family": "Roboto",
+  "variants": [
+    "100",
+    "100italic",
+    "300",
+    "300italic",
+    "regular",
+    "italic",
+    "500",
+    "500italic",
+    "700",
+    "700italic",
+    "900",
+    "900italic"
+  ],
+  "subsets": [
+    "cyrillic",
+    "cyrillic-ext",
+    "greek",
+    "greek-ext",
+    "latin",
+    "latin-ext",
+    "vietnamese"
+  ],
+  "category": "sans-serif",
+  "version": "v30",
+  "lastModified": "2022-09-22",
+  "popularity": 1,
+  "defSubset": "latin",
+  "defVariant": "regular"
+}
