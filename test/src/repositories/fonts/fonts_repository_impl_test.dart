@@ -56,11 +56,25 @@ void main() {
         ),
       );
     });
+
+    test('when request fails should log', () async {
+      when(() => httpClientMock.get<List<dynamic>>('/fonts'))
+          .thenThrow(HttpClientExceptionMock());
+
+      await sut.getFilterFonts().onError<Failure>((_, __) => []).whenComplete(
+            () => verify(
+              () => loggerMock.error(any<String>(), any<dynamic>(), any()),
+            ).called(1),
+          );
+
+      verifyNoMoreInteractions(loggerMock);
+    });
   });
 
   group('.getFont', () {
     late String fontId;
     late List<String> subsets;
+    late String subsetsJoined;
 
     setUp(() {
       fontId = faker.lorem.word();
@@ -68,11 +82,11 @@ void main() {
         faker.datatype.number(min: 1, max: 5),
         faker.lorem.word(),
       );
+      subsetsJoined = subsets.join(',');
     });
 
     test('when request has success should return a FontModel', () async {
       final expectedModel = FontModelFakeFactory.make();
-      final subsetsJoined = subsets.join(',');
       when(
         () => httpClientMock.get<Map<String, dynamic>>(
           '/fonts/$fontId',
@@ -96,7 +110,7 @@ void main() {
         when(
           () => httpClientMock.get<Map<String, dynamic>>(
             '/fonts/$fontId',
-            queryParameters: {'subsets': subsets.join(',')},
+            queryParameters: {'subsets': subsetsJoined},
           ),
         ).thenThrow(exception);
 
@@ -104,6 +118,32 @@ void main() {
           () async => sut.getFont(fontId, subsets),
           throwsA(isA<FontNotFoundExecption>()),
         );
+      },
+    );
+
+    test(
+      'when catch a HttpClientException with code Not-Found should log',
+      () async {
+        final exception = HttpClientExceptionMock();
+        when(
+          () => httpClientMock.get<Map<String, dynamic>>(
+            '/fonts/$fontId',
+            queryParameters: {'subsets': subsetsJoined},
+          ),
+        ).thenThrow(exception);
+        when(() => exception.statusCode).thenReturn(HttpStatus.notFound);
+
+        await sut
+            .getFont(fontId, subsets)
+            .onError<FontNotFoundExecption>(
+              (_, __) => FontModelFakeFactory.make(),
+            )
+            .whenComplete(
+              () => verify(
+                () => loggerMock.error(any<String>(), any<dynamic>(), any()),
+              ).called(1),
+            );
+        verifyNoMoreInteractions(loggerMock);
       },
     );
 
@@ -116,7 +156,7 @@ void main() {
         when(
           () => httpClientMock.get<Map<String, dynamic>>(
             '/fonts/$fontId',
-            queryParameters: {'subsets': subsets.join(',')},
+            queryParameters: {'subsets': subsetsJoined},
           ),
         ).thenThrow(exception);
 
@@ -126,6 +166,33 @@ void main() {
             isA<Failure>().having((f) => f.message, 'message', isNotEmpty),
           ),
         );
+      },
+    );
+
+    test(
+      'when catch a HttpClientException with a code that is not Not-Found '
+      'should log',
+      () async {
+        final exception = HttpClientExceptionMock();
+        when(
+          () => httpClientMock.get<Map<String, dynamic>>(
+            '/fonts/$fontId',
+            queryParameters: {'subsets': subsetsJoined},
+          ),
+        ).thenThrow(exception);
+        when(() => exception.statusCode).thenReturn(HttpStatus.badGateway);
+
+        await sut
+            .getFont(fontId, subsets)
+            .onError<Failure>(
+              (_, __) => FontModelFakeFactory.make(),
+            )
+            .whenComplete(
+              () => verify(
+                () => loggerMock.error(any<String>(), any<dynamic>(), any()),
+              ).called(1),
+            );
+        verifyNoMoreInteractions(loggerMock);
       },
     );
   });
