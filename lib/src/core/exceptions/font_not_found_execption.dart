@@ -1,0 +1,1 @@
+class FontNotFoundExecption implements Exception {}

@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import '../../core/exceptions/failure.dart';
+import '../../core/exceptions/font_not_found_execption.dart';
 import '../../core/http_client/http_client.dart';
 import '../../core/http_client/http_client_exception.dart';
 import '../../core/logger/logger.dart';
 import '../../models/font_filter_item_model.dart';
+import '../../models/font_model.dart';
 import 'fonts_repository.dart';
 
 class FontsRepositoryImpl implements FontsRepository {
@@ -23,6 +27,25 @@ class FontsRepositoryImpl implements FontsRepository {
           .toList(growable: false);
     } on HttpClientException<dynamic> catch (e, st) {
       const message = 'Failed to get fonts';
+      _logger.error(message, e, st);
+      throw Failure(message);
+    }
+  }
+
+  @override
+  Future<FontModel> getFont(String id, List<String> subsets) async {
+    try {
+      final response = await _httpClient.get<Map<String, dynamic>>(
+        '/fonts/$id',
+        queryParameters: {'subsets': subsets.join(',')},
+      );
+      return FontModel.fromMap(response.data);
+    } on HttpClientException<dynamic> catch (e, st) {
+      if (e.statusCode == HttpStatus.notFound) {
+        _logger.error('Font $id with $subsets not found', e, st);
+        throw FontNotFoundExecption();
+      }
+      final message = 'Failed to get font $id with subsets $subsets';
       _logger.error(message, e, st);
       throw Failure(message);
     }
