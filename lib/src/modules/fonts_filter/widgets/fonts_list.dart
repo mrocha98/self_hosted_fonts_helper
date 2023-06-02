@@ -39,7 +39,9 @@ class FontsList extends StatelessWidget {
                 title: Text(font.family),
                 subtitle: Text(_parseSubtitle(context, font, sortBy)),
                 onTap: () {
-                  context.read<FontsFilterController>().selectedFont = font;
+                  context.read<FontsFilterController>()
+                    ..selectedFont = font
+                    ..resetFilteredList();
                   Navigator.of(context).pop();
                   Navigator.of(context)
                       .pushNamed(FontView.routeName, arguments: font);
