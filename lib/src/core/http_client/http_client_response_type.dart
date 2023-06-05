@@ -1,0 +1,4 @@
+enum HttpClientResponseType {
+  json,
+  bytes,
+}

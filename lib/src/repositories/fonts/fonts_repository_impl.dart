@@ -4,6 +4,7 @@ import '../../core/exceptions/failure.dart';
 import '../../core/exceptions/font_not_found_execption.dart';
 import '../../core/http_client/http_client.dart';
 import '../../core/http_client/http_client_exception.dart';
+import '../../core/http_client/http_client_response_type.dart';
 import '../../core/logger/logger.dart';
 import '../../models/font_filter_item_model.dart';
 import '../../models/font_model.dart';
@@ -46,6 +47,23 @@ class FontsRepositoryImpl implements FontsRepository {
         throw FontNotFoundExecption();
       }
       final message = 'Failed to get font $id with subsets $subsets';
+      _logger.error(message, e, st);
+      throw Failure(message);
+    }
+  }
+
+  @override
+  Future<List<int>> downloadFont(String url, String extension) async {
+    try {
+      final response = await _httpClient.get<List<int>>(
+        url,
+        useBaseUrl: false,
+        contentType: 'font/$extension',
+        responseType: HttpClientResponseType.bytes,
+      );
+      return response.data;
+    } on HttpClientException<dynamic> catch (e, st) {
+      const message = 'Failed to download font';
       _logger.error(message, e, st);
       throw Failure(message);
     }

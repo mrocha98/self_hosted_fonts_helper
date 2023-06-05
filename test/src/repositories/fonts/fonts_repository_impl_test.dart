@@ -6,6 +6,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:self_hosted_fonts_helper/src/core/exceptions/failure.dart';
 import 'package:self_hosted_fonts_helper/src/core/exceptions/font_not_found_execption.dart';
 import 'package:self_hosted_fonts_helper/src/core/http_client/http_client_response.dart';
+import 'package:self_hosted_fonts_helper/src/core/http_client/http_client_response_type.dart';
 import 'package:self_hosted_fonts_helper/src/repositories/fonts/fonts_repository_impl.dart';
 
 import '../../../mocks/mocks.dart';
@@ -195,5 +196,69 @@ void main() {
         verifyNoMoreInteractions(loggerMock);
       },
     );
+  });
+
+  group('.downloadFont', () {
+    const extension = 'ttf';
+    late String url;
+
+    setUp(() {
+      url = faker.internet.url();
+    });
+
+    test('when request has success should return a binary list', () async {
+      final expected = [1, 0, 1, 1, 1, 0, 1];
+      when(
+        () => httpClientMock.get<List<int>>(
+          url,
+          useBaseUrl: false,
+          contentType: 'font/$extension',
+          responseType: HttpClientResponseType.bytes,
+        ),
+      ).thenAnswer((_) async => HttpClientResponse(data: expected));
+
+      final bytes = await sut.downloadFont(url, extension);
+
+      expect(bytes, expected);
+    });
+
+    test('when request fails should throw a Failure', () {
+      when(
+        () => httpClientMock.get<List<int>>(
+          url,
+          useBaseUrl: false,
+          contentType: 'font/$extension',
+          responseType: HttpClientResponseType.bytes,
+        ),
+      ).thenThrow(HttpClientExceptionMock());
+
+      expect(
+        () async => sut.downloadFont(url, extension),
+        throwsA(
+          isA<Failure>().having((f) => f.message, 'message', isNotEmpty),
+        ),
+      );
+    });
+
+    test('when request fails should log', () async {
+      when(
+        () => httpClientMock.get<List<int>>(
+          url,
+          useBaseUrl: false,
+          contentType: 'font/$extension',
+          responseType: HttpClientResponseType.bytes,
+        ),
+      ).thenThrow(HttpClientExceptionMock());
+
+      await sut
+          .downloadFont(url, extension)
+          .onError<Failure>((_, __) => [])
+          .whenComplete(
+            () => verify(
+              () => loggerMock.error(any<String>(), any<dynamic>(), any()),
+            ).called(1),
+          );
+      verifyNoMoreInteractions(loggerMock);
+    });
   });
 }

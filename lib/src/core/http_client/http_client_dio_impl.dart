@@ -4,10 +4,11 @@ import '../env/env.dart';
 import 'http_client.dart';
 import 'http_client_exception.dart';
 import 'http_client_response.dart';
+import 'http_client_response_type.dart';
 
 class HttpClientDioImpl implements HttpClient {
   HttpClientDioImpl(this._env) {
-    _dio = Dio(_defaultOptions);
+    _dio = Dio(_defaultOptions)..interceptors.add(LogInterceptor());
   }
 
   late final Dio _dio;
@@ -15,7 +16,6 @@ class HttpClientDioImpl implements HttpClient {
   final Env _env;
 
   BaseOptions get _defaultOptions => BaseOptions(
-        baseUrl: _env.fontsApi,
         connectTimeout: Duration(seconds: _env.httpClientConnectTimeoutSeconds),
         receiveTimeout: Duration(seconds: _env.httpClientReceiveTimeoutSeconds),
       );
@@ -26,14 +26,22 @@ class HttpClientDioImpl implements HttpClient {
   @override
   Future<HttpClientResponse<T>> get<T>(
     String path, {
+    bool useBaseUrl = true,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? queryParameters,
+    HttpClientResponseType? responseType,
+    String? contentType,
   }) async {
+    final parsedPath = useBaseUrl ? '$baseUrl$path' : path;
     try {
       final response = await _dio.get<T>(
-        path,
+        parsedPath,
         queryParameters: queryParameters,
-        options: Options(headers: headers),
+        options: Options(
+          contentType: contentType,
+          headers: headers,
+          responseType: _httpClientResponseTypeConverter(responseType),
+        ),
       );
       return _dioResponseConverter(response);
     } on DioError catch (error) {
@@ -61,4 +69,13 @@ class HttpClientDioImpl implements HttpClient {
         message: error.message,
         statusCode: error.response?.statusCode,
       );
+
+  ResponseType? _httpClientResponseTypeConverter(
+    HttpClientResponseType? httpClientResponseType,
+  ) =>
+      switch (httpClientResponseType) {
+        HttpClientResponseType.json => ResponseType.json,
+        HttpClientResponseType.bytes => ResponseType.bytes,
+        _ => null,
+      };
 }

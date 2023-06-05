@@ -26,4 +26,33 @@ void main() {
       verify(() => fontsRepositoryMock.getFilterFonts()).called(1);
     });
   });
+
+  group('.getFont', () {
+    test('should get the font from FontsRepositoryMock', () async {
+      final repoFont = FontModelFakeFactory.make();
+      when(() => fontsRepositoryMock.getFont(repoFont.id, repoFont.subsets))
+          .thenAnswer((_) async => repoFont);
+
+      final font = await sut.getFont(repoFont.id, repoFont.subsets);
+
+      expect(font, repoFont);
+      verify(() => fontsRepositoryMock.getFont(repoFont.id, repoFont.subsets))
+          .called(1);
+    });
+  });
+
+  group('.downloadFontVariant', () {
+    test('should get binary of ttf font from FontsRepositoryMock', () async {
+      final repoBin = [1, 0, 1, 0, 1, 0, 1];
+      final fontVariant = FontVariantModelFakeFactory.make();
+      when(() => fontsRepositoryMock.downloadFont(fontVariant.ttf, 'ttf'))
+          .thenAnswer((_) async => repoBin);
+
+      final bin = await sut.downloadFontVariant(fontVariant);
+
+      expect(bin, repoBin);
+      verify(() => fontsRepositoryMock.downloadFont(fontVariant.ttf, 'ttf'))
+          .called(1);
+    });
+  });
 }

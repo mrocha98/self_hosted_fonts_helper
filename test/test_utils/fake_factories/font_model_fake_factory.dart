@@ -33,4 +33,7 @@ class FontModelFakeFactory {
         storeId: _faker.datatype.uuid(),
         variants: FontVariantModelFakeFactory.makeList(),
       );
+
+  static List<FontModel> makeList({int length = 2}) =>
+      List.filled(length, make());
 }
