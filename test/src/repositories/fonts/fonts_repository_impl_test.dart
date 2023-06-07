@@ -212,7 +212,6 @@ void main() {
         () => httpClientMock.get<List<int>>(
           url,
           useBaseUrl: false,
-          contentType: 'font/$extension',
           responseType: HttpClientResponseType.bytes,
         ),
       ).thenAnswer((_) async => HttpClientResponse(data: expected));
@@ -227,7 +226,6 @@ void main() {
         () => httpClientMock.get<List<int>>(
           url,
           useBaseUrl: false,
-          contentType: 'font/$extension',
           responseType: HttpClientResponseType.bytes,
         ),
       ).thenThrow(HttpClientExceptionMock());
@@ -245,7 +243,6 @@ void main() {
         () => httpClientMock.get<List<int>>(
           url,
           useBaseUrl: false,
-          contentType: 'font/$extension',
           responseType: HttpClientResponseType.bytes,
         ),
       ).thenThrow(HttpClientExceptionMock());

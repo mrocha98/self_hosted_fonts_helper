@@ -58,7 +58,6 @@ class FontsRepositoryImpl implements FontsRepository {
       final response = await _httpClient.get<List<int>>(
         url,
         useBaseUrl: false,
-        contentType: 'font/$extension',
         responseType: HttpClientResponseType.bytes,
       );
       return response.data;
