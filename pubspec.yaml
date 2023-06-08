@@ -23,7 +23,7 @@ dependencies:
   url_launcher: ^6.1.11
   dio: ^5.1.2
   equatable: ^2.0.5
-  talker_flutter: ^2.4.3
+  talker_flutter: ^3.1.1
   shimmer: ^3.0.0
   clock: ^1.1.1
 

@@ -44,7 +44,7 @@ class HttpClientDioImpl implements HttpClient {
         ),
       );
       return _dioResponseConverter(response);
-    } on DioError catch (error) {
+    } on DioException catch (error) {
       throw _dioErrorConverter(error);
     }
   }
@@ -58,7 +58,7 @@ class HttpClientDioImpl implements HttpClient {
         statusMessage: response.statusMessage,
       );
 
-  HttpClientException<dynamic> _dioErrorConverter(DioError error) =>
+  HttpClientException<dynamic> _dioErrorConverter(DioException error) =>
       HttpClientException(
         error: error,
         response: HttpClientResponse(
