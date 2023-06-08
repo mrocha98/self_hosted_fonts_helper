@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'app_widget.dart';
-import 'core/database/key_value_storage/key_value_storage.dart';
 import 'core/database/key_value_storage/key_value_storage_get_storage_impl.dart';
 import 'core/env/env.dart';
 import 'core/http_client/http_client.dart';
@@ -38,15 +37,18 @@ class AppModule extends StatelessWidget {
           create: (context) => LoggerTalkerImpl(),
           lazy: false,
         ),
-        Provider<KeyValueStorage>(
-          create: (context) => KeyValueStorageGetStorageImpl(),
+        Provider<KeyValueStorageGetStorageImplSettingsContainer>(
+          create: (context) => KeyValueStorageGetStorageImplSettingsContainer(),
+        ),
+        Provider<KeyValueStorageGetStorageImplFontsContainer>(
+          create: (context) => KeyValueStorageGetStorageImplFontsContainer(),
         ),
         Provider<HttpClient>(
           create: (context) => HttpClientDioImpl(context.read<Env>()),
         ),
         Provider<LocaleRepository>(
           create: (context) => LocaleRepositoryImpl(
-            context.read<KeyValueStorage>(),
+            context.read<KeyValueStorageGetStorageImplSettingsContainer>(),
           ),
         ),
         Provider<LocaleService>(
@@ -56,7 +58,7 @@ class AppModule extends StatelessWidget {
         ),
         Provider<ThemeModeRepository>(
           create: (context) => ThemeModeRepositoryImpl(
-            context.read<KeyValueStorage>(),
+            context.read<KeyValueStorageGetStorageImplSettingsContainer>(),
           ),
         ),
         Provider<ThemeModeService>(
@@ -79,7 +81,7 @@ class AppModule extends StatelessWidget {
         Provider<FontsService>(
           create: (context) => FontsServiceImpl(
             context.read<FontsRepository>(),
-            context.read<KeyValueStorage>(),
+            context.read<KeyValueStorageGetStorageImplFontsContainer>(),
           ),
         ),
         ChangeNotifierProvider<FontsFilterController>(

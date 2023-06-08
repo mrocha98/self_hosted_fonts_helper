@@ -1,4 +1,7 @@
 abstract interface class KeyValueStorage {
+  /// init storage with optional [args]
+  Future<void> init([dynamic args]);
+
   /// search [key] in storage and return the associated value if exists
   /// else return null
   Future<V?> get<V>(String key);

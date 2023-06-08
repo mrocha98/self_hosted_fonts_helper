@@ -1,8 +1,27 @@
+import 'dart:collection';
+
 import 'package:clock/clock.dart';
 import 'package:get_storage/get_storage.dart';
 import 'key_value_storage.dart';
 
-class KeyValueStorageGetStorageImpl implements KeyValueStorage {
+sealed class KeyValueStorageGetStorageImpl implements KeyValueStorage {
+  KeyValueStorageGetStorageImpl({required String container})
+      : _container = container;
+
+  static final Set<String> _containers = HashSet();
+
+  final String _container;
+
+  GetStorage get _storage => GetStorage(_container);
+
+  @override
+  Future<void> init([dynamic args]) async {
+    final isContainerInactive = _containers.add(_container);
+    if (isContainerInactive) {
+      await GetStorage.init(_container);
+    }
+  }
+
   @override
   Future<V?> get<V>(String key) async {
     final expirationDate = _getExpirationDate(key);
@@ -10,7 +29,7 @@ class KeyValueStorageGetStorageImpl implements KeyValueStorage {
       await remove(key);
       return null;
     }
-    return GetStorage().read<V>(key);
+    return _storage.read<V>(key);
   }
 
   @override
@@ -26,15 +45,15 @@ class KeyValueStorageGetStorageImpl implements KeyValueStorage {
 
   @override
   Future<void> remove(String key) => Future.wait([
-        GetStorage().remove(key),
-        GetStorage().remove(_getExpirationKey(key)),
+        _storage.remove(key),
+        _storage.remove(_getExpirationKey(key)),
       ]);
 
   @override
   Future<void> set<V>(String key, V? value, {DateTime? expiresOn}) async {
-    await GetStorage().write(key, value);
+    await _storage.write(key, value);
     if (expiresOn != null) {
-      await GetStorage().write(
+      await _storage.write(
         _getExpirationKey(key),
         expiresOn.toIso8601String(),
       );
@@ -45,7 +64,7 @@ class KeyValueStorageGetStorageImpl implements KeyValueStorage {
 
   DateTime? _getExpirationDate(String key) {
     final expirationKey = _getExpirationKey(key);
-    final expirationDate = GetStorage().read<String>(expirationKey);
+    final expirationDate = _storage.read<String>(expirationKey);
     if (expirationDate != null) {
       return DateTime.tryParse(expirationDate);
     }
@@ -54,4 +73,26 @@ class KeyValueStorageGetStorageImpl implements KeyValueStorage {
 
   bool _expired(DateTime expirationDate) =>
       expirationDate.isBefore(clock.now());
+}
+
+final class KeyValueStorageGetStorageImplSettingsContainer
+    extends KeyValueStorageGetStorageImpl {
+  factory KeyValueStorageGetStorageImplSettingsContainer() =>
+      _instance ??= KeyValueStorageGetStorageImplSettingsContainer._internal();
+
+  KeyValueStorageGetStorageImplSettingsContainer._internal()
+      : super(container: 'settings');
+
+  static KeyValueStorageGetStorageImplSettingsContainer? _instance;
+}
+
+final class KeyValueStorageGetStorageImplFontsContainer
+    extends KeyValueStorageGetStorageImpl {
+  factory KeyValueStorageGetStorageImplFontsContainer() =>
+      _instance ??= KeyValueStorageGetStorageImplFontsContainer._internal();
+
+  KeyValueStorageGetStorageImplFontsContainer._internal()
+      : super(container: 'fonts');
+
+  static KeyValueStorageGetStorageImplFontsContainer? _instance;
 }
