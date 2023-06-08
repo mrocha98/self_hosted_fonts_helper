@@ -79,6 +79,7 @@ class AppModule extends StatelessWidget {
         Provider<FontsService>(
           create: (context) => FontsServiceImpl(
             context.read<FontsRepository>(),
+            context.read<KeyValueStorage>(),
           ),
         ),
         ChangeNotifierProvider<FontsFilterController>(
