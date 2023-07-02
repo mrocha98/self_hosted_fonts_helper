@@ -2,6 +2,7 @@
     "appTitle": "Self Hosted Fonts Helper",
     "appSubtitle": "Um jeito descomplicado de auto-hospedar fontes",
     "genericErrorMessage": "Algo deu errado",
+    "retryActionText": "tentar novamente",
     "homeAuthorLink": "por Matheus Rocha",
     "homeContinueAction": "Selecione uma fonte para continuar...",
     "homeUsefulLinksSectionTitle": "Links úteis",

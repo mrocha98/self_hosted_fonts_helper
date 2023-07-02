@@ -11,6 +11,10 @@
     "@genericErrorMessage": {
       "description": "A generic error message"
     },
+    "retryActionText": "retry",
+    "@retryActionText": {
+      "description": "The text in retry actions (normally buttons)"
+    },
     "homeAuthorLink": "by Matheus Rocha",
     "@homeAuthorLink": {
       "description": "The text for the author link"
